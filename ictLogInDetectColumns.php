@@ -36,6 +36,7 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
     function output_table_columns_data($columnName, $post_id)
     {
         //$field = get_field($columnName, $post_id);
+        $echo_flag = true;
 
         $field = get_post_meta($post_id, $columnName, true);
 
@@ -44,7 +45,7 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
                 $id = get_post_meta($post_id, '_detected_user_id', true);
                 if (!empty($id))
                     echo get_userdata($id)->user_login;
-                exit;
+                $echo_flag = false;
             }
 
         if ('_detected_successful' == $columnName)
@@ -52,10 +53,10 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
                 echo 'False';
             else {
                 echo 'True';
-                exit;
+                $echo_flag = false;
             }
-
-        echo $field;
+        if ($echo_flag)
+            echo $field;
     }
 
 
