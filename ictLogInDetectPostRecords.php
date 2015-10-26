@@ -35,7 +35,7 @@ class ictLogInDetectPostRecords extends ictLogInDetectSettings
         }
 
     }
-    
+
 
     function create_new_record()
     {

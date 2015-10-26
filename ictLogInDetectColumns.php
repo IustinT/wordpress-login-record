@@ -44,11 +44,16 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
                 $id = get_post_meta($post_id, '_detected_user_id', true);
                 if (!empty($id))
                     echo get_userdata($id)->user_login;
+                exit;
             }
 
         if ('_detected_successful' == $columnName)
             if (empty($field))
                 echo 'False';
+            else {
+                echo 'True';
+                exit;
+            }
 
         echo $field;
     }
