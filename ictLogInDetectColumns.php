@@ -1,13 +1,15 @@
 <?php
+
 /**
  * User: Iustin
  * Date: 25/10/2015
  * Time: 09:46
  */
+class ictLogInDetectColumns extends ictLogInDetectSettings
+{
 
-class ictLogInDetectColumns extends ictLogInDetectSettings {
-
-    function __construct(){
+    function __construct()
+    {
 
         add_filter('manage_edit-loginrecord_columns', array($this, 'add_table_columns'));
 
@@ -23,7 +25,7 @@ class ictLogInDetectColumns extends ictLogInDetectSettings {
             '_detected_username' => __('Username'),
             '_detected_password' => __('Password'),
             '_detected_ip' => __('IP'),
-            '_detected_allowed' => __('Allowed'),
+            '_detected_successful' => __('Allowed'),
             'date' => __('Date'),
             'comments' => __('Comments')
         );
@@ -33,7 +35,21 @@ class ictLogInDetectColumns extends ictLogInDetectSettings {
 
     function output_table_columns_data($columnName, $post_id)
     {
-        $field = get_field($columnName, $post_id);
+        //$field = get_field($columnName, $post_id);
+
+        $field = get_post_meta($post_id, $columnName, true);
+
+        if ('_detected_username' == $columnName)
+            if (empty($field)) {
+                $id = get_post_meta($post_id, '_detected_user_id', true);
+                if (!empty($id))
+                    echo get_userdata($id)->user_login;
+            }
+
+        if ('_detected_successful' == $columnName)
+            if (empty($field))
+                echo 'False';
+
         echo $field;
     }
 

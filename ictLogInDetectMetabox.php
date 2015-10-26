@@ -25,6 +25,10 @@ class ictLogInDetectMetabox extends ictLogInDetectSettings {
         $detected_password = get_post_meta($post->ID, '_detected_password', true);
         $detected_time = get_post_meta($post->ID, '_detected_time', true);
         $detected_ip = get_post_meta($post->ID, '_detected_ip', true);
+        $detected_successful = get_post_meta($post->ID, '_detected_successful', true);
+
+        if(empty($detected_successful))
+           // $detected_successful=false;
 
         // Add a nonce field so we can check for it later.
         wp_nonce_field('save_login_records_nonce', 'login_records_nonce');
@@ -44,6 +48,10 @@ class ictLogInDetectMetabox extends ictLogInDetectSettings {
         // Output label and field
         echo('<label for="detected_ip">' . __('IP ', $this->nameSpace) . '</label>');
         echo('<input type="text" name="detected_ip" id="detected_ip" value="' . esc_attr($detected_ip) . '" /><br>');
+
+        // Output label and field
+        echo('<label for="detected_successful">' . __('Allowed ', $this->nameSpace) . '</label>');
+        echo('<input type="text" name="detected_successful" id="detected_successful" value="' . esc_attr($detected_successful) . '" /><br>');
 
     }
 

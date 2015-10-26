@@ -41,7 +41,7 @@ class ictLoginDetect// extends ictLogInDetectSettings
     function record_login_attempt($user, $username, $password)
     {
         if (is_a($user, 'WP_User')) {
-            $this->records->create_post($user->ID);
+            $this->records->create_post($user->ID,null,null,null,true);
 
         } elseif (is_wp_error($user)) {
 
@@ -52,7 +52,7 @@ class ictLoginDetect// extends ictLogInDetectSettings
                 else
                     $this->records->create_post(null, $username, $password, null, false);
 
-        } 
+        }
         return $user;
     }
 
