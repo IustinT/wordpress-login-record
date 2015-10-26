@@ -16,7 +16,7 @@ Features to be added:
 
 ### What is this repository for? ###
 
-WordPress Login Record - an WordPress plugin
+WordPress Login Record - an WordPress plugin  
 * version 0.5
 
 ### How do I get set up? ###
