@@ -1,13 +1,15 @@
 <?php
+
 /**
  * User: Iustin
  * Date: 25/10/2015
  * Time: 09:41
  */
+class ictLogInDetectMetabox extends ictLogInDetectSettings
+{
 
-class ictLogInDetectMetabox extends ictLogInDetectSettings {
-
-    function __construct(){
+    function __construct()
+    {
 
         add_action('add_meta_boxes', array($this, 'register_meta_boxes'));
         add_action('save_post', array($this, 'save_meta_boxes'));
@@ -23,12 +25,18 @@ class ictLogInDetectMetabox extends ictLogInDetectSettings {
 
         $detected_username = get_post_meta($post->ID, '_detected_username', true);
         $detected_password = get_post_meta($post->ID, '_detected_password', true);
-        $detected_time = get_post_meta($post->ID, '_detected_time', true);
+        $detected_time = get_the_time(null, $post);
         $detected_ip = get_post_meta($post->ID, '_detected_ip', true);
         $detected_successful = get_post_meta($post->ID, '_detected_successful', true);
 
-        if(empty($detected_successful))
-           // $detected_successful=false;
+        if (empty($detected_username))
+            $id = get_post_meta($post->ID, '_detected_user_id', true);
+        if (!empty($id))
+            $detected_username = get_userdata($id)->user_login;
+
+
+        if (empty($detected_successful))
+            $detected_successful = false;
 
         // Add a nonce field so we can check for it later.
         wp_nonce_field('save_login_records_nonce', 'login_records_nonce');
@@ -93,5 +101,6 @@ class ictLogInDetectMetabox extends ictLogInDetectSettings {
         update_post_meta($post_id, '_detected_ip', $detected_ip);
 
     }
+
 
 }

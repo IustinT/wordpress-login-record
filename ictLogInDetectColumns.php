@@ -41,22 +41,24 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
         $field = get_post_meta($post_id, $columnName, true);
 
         if ('_detected_username' == $columnName)
-            if (empty($field)) {
+            if (empty($field))
                 $id = get_post_meta($post_id, '_detected_user_id', true);
-                if (!empty($id))
-                    echo get_userdata($id)->user_login;
-                $echo_flag = false;
-            }
+        if (!empty($id))
+            $field = get_userdata($id)->user_login;
+
 
         if ('_detected_successful' == $columnName)
             if (empty($field))
-                echo 'False';
-            else {
-                echo 'True';
-                $echo_flag = false;
-            }
-        if ($echo_flag)
-            echo $field;
+                $field = 'False';
+            else
+                $field = 'True';
+
+        if ('_detected_password' == $columnName)
+            if (empty($field))
+                $field = 'Not Recorded';
+
+
+        echo $field;
     }
 
 
