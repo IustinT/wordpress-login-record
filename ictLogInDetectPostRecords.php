@@ -8,24 +8,30 @@
 class ictLogInDetectPostRecords extends ictLogInDetectSettings
 {
 
-    function create_post($user_id = null, $user_name = null, $password = null, $ip=null, $successful=null)
+    function create_post($user_id = null,
+                         $user_name = null, $password = null,
+                         $ip=null, $successful=false,
+                         $existing_password=false)
     {
         $post_id = $this->create_new_record();
-
-        if (!(is_null($user_id) || empty($user_id)))
+        if (isset($user_id))
         update_post_meta($post_id, '_detected_user_id', $user_id);
 
-        if (!(is_null($user_name) || empty($user_name)))
+        if (isset($user_name) and !empty($user_name))
             $this->update_record_meta($post_id, '_detected_username', $user_name);
 
-        if (!(is_null($password) || empty($password)))
+        if (isset($password) and !empty($password))
             $this->update_record_meta($post_id, '_detected_password', $password);
 
-        if (!(is_null($ip) || empty($ip)))
+        if (isset($ip))
             $this->update_record_meta($post_id, '_detected_ip', $ip);
 
-        if (!(is_null($successful) || empty($successful)))
+        if ($successful)
             $this->update_record_meta($post_id, '_detected_successful', $successful);
+
+
+        if ($existing_password){
+            $this->update_record_meta($post_id, '_detected_existing_password', 'true');}
 
     }
 
@@ -33,14 +39,6 @@ class ictLogInDetectPostRecords extends ictLogInDetectSettings
     {
             update_post_meta($post_id, $meta_column, $data);
     }
-
-    /**
-     * function update_record_meta($post_id, $user_id = null, $user_name = null, $password = null)
-     * {
-     * if($user_id!=null)
-     * update_post_meta($post_id, '_detected_user_id', $user_id);
-     * }
-     **/
 
     function create_new_record()
     {

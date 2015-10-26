@@ -2,6 +2,7 @@
   <dictionary name="Iustin">
     <words>
       <w>abspath</w>
+      <w>hasher</w>
       <w>loginrecord</w>
     </words>
   </dictionary>

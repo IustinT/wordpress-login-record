@@ -44,15 +44,46 @@ class ictLoginDetect// extends ictLogInDetectSettings
             $this->records->create_post($user->ID);
 
         } elseif (is_wp_error($user)) {
-            // if (isset($_POST['wp-submit']))
-            if (isset($username,$password))
 
-                $this->records->create_post(null, $username, $password, null, "0");
+            if (isset($username, $password) and !(empty($username) or empty($password)))
 
-        } else $this->records->create_post(get_class($user));
+                if ($this->password_exists_in_db($password))
+                    $this->records->create_post(null, $username, null, null, false, true);
+                else
+                    $this->records->create_post(null, $username, $password, null, false);
 
+        } 
         return $user;
     }
+
+
+
+    function password_exists_in_db($password)
+    {
+        global $wpdb;
+        $hashed_password = md5($password);
+
+        $results = $wpdb->get_var("SELECT COUNT(*) FROM " . $wpdb->users . " WHERE( user_pass = '" . $hashed_password . "');");
+
+        if ($results > 0)
+            return true;
+
+        require_once(ABSPATH . 'wp-includes/class-phpass.php');
+
+        $hasher = new PasswordHash(8, TRUE);
+
+        foreach ($wpdb->get_results("SELECT user_pass FROM " . $wpdb->users . ";") as $key => $row) {
+
+            $check = $hasher->CheckPassword($password, $row->user_pass);
+
+            if ($check)
+                return true;
+        }
+
+        return false;
+
+    }
+
 }
 
 $ictLoginInstance = new ictLoginDetect;
