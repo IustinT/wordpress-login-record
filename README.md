@@ -17,7 +17,6 @@ Features to be added:
 
 WordPress Login Record - an WordPress plugin
 * version 0.5
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
 
