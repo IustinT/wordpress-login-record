@@ -12,29 +12,26 @@ License:
 defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
 
 
-require_once('ictRegisterPostType.php');
+require_once('ictLogInDetectLogInDetectRegisterPostType.php');
 //require_once('ictLogInDetectMetabox.php');
 require_once('ictLogInDetectColumns.php');
 require_once('ictLogInDetectPostRecords.php');
-require_once 'ictRemoveSupport.php';
+require_once 'ictLogInDetectLogInDetectRemoveSupport.php';
 
 
 class ictLoginDetect// extends ictLogInDetectSettings
 {
     private $registerPost;
-    private $metabox_class;
     private $columns_class;
     private $records;
     private $remove_support;
 
     function __construct()
     {
-        $this->registerPost = new ictRegisterPostType();
-   //     $this->metabox_class = new ictLogInDetectMetabox();
-
+        $this->registerPost = new ictLogInDetectRegisterPostType(); 
         $this->columns_class = new ictLogInDetectColumns();
         $this->records = new ictLogInDetectPostRecords();
-        $this->remove_support = new ictRemoveSupport();
+        $this->remove_support = new ictLogInDetectRemoveSupport();
 
         add_action('init', array($this->registerPost, 'register_login_record_post_type'));
 
