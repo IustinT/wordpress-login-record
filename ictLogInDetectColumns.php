@@ -5,7 +5,7 @@
  * Date: 25/10/2015
  * Time: 09:46
  */
-class ictLogInDetectColumns extends ictLogInDetectSettings
+class ictLogInDetColumns extends ictLogInDetectSettings
 {
 
     function __construct()
