@@ -17,17 +17,17 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
 
     }
 
+// 'Title' => __('Title')
+// 'comments' => __('Comments')
     function add_table_columns($columns)
     {
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'Title' => __('Title'),
             '_detected_username' => __('Username'),
             '_detected_password' => __('Password'),
-            '_detected_ip' => __('IP'),
-            '_detected_successful' => __('Allowed'),
-            'date' => __('Date'),
-            'comments' => __('Comments')
+            '_detected_ip' => __('IP Address'),
+            '_detected_successful' => __('Logged In'),
+            'date' => __('Date and Time')
         );
 
         return $columns;
@@ -49,9 +49,9 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
 
         if ('_detected_successful' == $columnName)
             if (empty($field))
-                $field = 'False';
+                $field = 'No';
             else
-                $field = 'True';
+                $field = 'Yes';
 
         if ('_detected_password' == $columnName)
             if (empty($field))
@@ -60,6 +60,4 @@ class ictLogInDetectColumns extends ictLogInDetectSettings
 
         echo $field;
     }
-
-
 }
