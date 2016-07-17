@@ -12,10 +12,11 @@ License:
 defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
 
 
-require_once('register_post_type.php');
-require_once('ictLogInDetectMetabox.php');
+require_once('ictRegisterPostType.php');
+//require_once('ictLogInDetectMetabox.php');
 require_once('ictLogInDetectColumns.php');
 require_once('ictLogInDetectPostRecords.php');
+require_once 'ictRemoveSupport.php';
 
 
 class ictLoginDetect// extends ictLogInDetectSettings
@@ -24,15 +25,20 @@ class ictLoginDetect// extends ictLogInDetectSettings
     private $metabox_class;
     private $columns_class;
     private $records;
+    private $remove_support;
 
     function __construct()
     {
         $this->registerPost = new ictRegisterPostType();
-        $this->metabox_class = new ictLogInDetectMetabox();
+   //     $this->metabox_class = new ictLogInDetectMetabox();
+
         $this->columns_class = new ictLogInDetectColumns();
         $this->records = new ictLogInDetectPostRecords();
+        $this->remove_support = new ictRemoveSupport();
 
         add_action('init', array($this->registerPost, 'register_login_record_post_type'));
+
+        add_action( 'init',  array($this->remove_support, 'ict_remove_post_type_support') );
 
         add_action('authenticate', array($this, 'record_login_attempt'), 20, 3);
 
