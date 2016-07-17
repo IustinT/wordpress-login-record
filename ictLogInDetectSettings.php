@@ -6,7 +6,7 @@
  */
 
 class ictLogInDetectSettings {
-
+    
     protected $postType = 'loginrecord';
     protected $nameSpace = 'ict_login_records';
 function __construct(){}
